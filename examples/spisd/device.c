@@ -67,6 +67,8 @@ static volatile ULONG card_change_num;
 static struct Interrupt *remove_int;
 static struct IOStdReq *change_int;
 
+extern void kprintf(const char *,...);
+
 char device_name[] = "spisd.device";
 char id_string[] = "spisd 2.0 (19 July 2021)";
 
@@ -260,6 +262,8 @@ static struct Library *init_device(__reg("a6") struct ExecBase *sys_base, __reg(
 {
     SysBase = *(struct ExecBase **)4;
     saved_seg_list = seg_list;
+    
+    kprintf("init_device");
 
     dev->lib_Node.ln_Type = NT_DEVICE;
     dev->lib_Node.ln_Name = device_name;
